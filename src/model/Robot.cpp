@@ -104,6 +104,10 @@ void Robot::loadFromFile(const std::string& filePath) {
 }
 
 void Robot::moveTo(int newX, int newY) {
+    int step = (moveCount >= 10) ? 2 : 1;
+    newX = x + (newX - x) * step;
+    newY = y + (newY - y) * step;
+
     if (newX < 0 || newX >= gridSize || newY < 0 || newY >= gridSize) {
         return;
     }
@@ -114,6 +118,7 @@ void Robot::moveTo(int newX, int newY) {
 
     x = newX;
     y = newY;
+    moveCount++;
     recordPosition();
 }
 
